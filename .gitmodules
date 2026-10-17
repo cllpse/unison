@@ -1,0 +1,12 @@
+[submodule "unison-components"]
+	path = unison-components
+	url = https://github.com/cllpse/unison-components
+[submodule "unison-plugin"]
+	path = unison-plugin
+	url = https://github.com/cllpse/unison-plugin
+[submodule "unison-website"]
+	path = unison-website
+	url = https://github.com/cllpse/unison-website
+[submodule "unison-playground"]
+	path = unison-playground
+	url = https://github.com/cllpse/unison-playground
