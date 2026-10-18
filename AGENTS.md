@@ -1,9 +1,10 @@
 # Unison
 
 Parent repository for the Unison tools. Each project is a git submodule with its own README.md and AGENTS.md:
-`unison-components`, `unison-plugin`, `unison-playground` and `unison-website`. `unison-plugin` and
-`unison-playground` contain a nested `unison-components` submodule; it is updated by the sync scripts, never edited
-by hand.
+`unison-components`, `unison-plugin`, `unison-playground`, `unison-playground-expo` and `unison-website`.
+`unison-plugin`, `unison-playground` and `unison-playground-expo` contain a nested `unison-components` submodule; it
+is never edited by hand. The sync scripts update the plugin and playground copies; the Expo playground's copy is
+bumped as a normal submodule.
 
 ## Commands
 
@@ -20,6 +21,11 @@ through. See README.md for when to use each.
 - `bun run plugin:build:typescript` / `plugin:build:files` - the two halves of `plugin:build`
 - `bun run plugin:watch` - rebuild the plugin on every `src/` change (long-running)
 - `bun run plugin:lint` / `plugin:format` / `plugin:typecheck` - Biome check, Biome format, `tsc --noEmit`
+- `bun run playground-expo:start` - Expo dev server (long-running)
+- `bun run playground-expo:android` / `playground-expo:ios` - dev server that opens the emulator or simulator; iOS
+  needs macOS (or EAS Build)
+- `bun run playground-expo:lint` / `playground-expo:format` / `playground-expo:typecheck` - Biome check, Biome format,
+  `tsc --noEmit`
 
 The manual syncs delete files in the target that the library no longer has; preview with
 `bun run components:sync-manual:<target> -- --dry-run`. Watch scripts never exit on their own; run them in the

@@ -15,7 +15,13 @@
     "plugin:watch": "bun run --cwd unison-plugin plugin:watch",
     "plugin:lint": "bun run --cwd unison-plugin lint",
     "plugin:format": "bun run --cwd unison-plugin format",
-    "plugin:typecheck": "bun run --cwd unison-plugin typecheck"
+    "plugin:typecheck": "bun run --cwd unison-plugin typecheck",
+    "playground-expo:start": "bun run --cwd unison-playground-expo start",
+    "playground-expo:android": "bun run --cwd unison-playground-expo android",
+    "playground-expo:ios": "bun run --cwd unison-playground-expo ios",
+    "playground-expo:lint": "bun run --cwd unison-playground-expo lint",
+    "playground-expo:format": "bun run --cwd unison-playground-expo format",
+    "playground-expo:typecheck": "bun run --cwd unison-playground-expo typecheck"
   },
   "packageManager": "bun@1.4.3"
 }

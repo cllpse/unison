@@ -10,3 +10,6 @@
 [submodule "unison-playground"]
 	path = unison-playground
 	url = https://github.com/cllpse/unison-playground
+[submodule "unison-playground-expo"]
+	path = unison-playground-expo
+	url = https://github.com/cllpse/unison-playground-expo
