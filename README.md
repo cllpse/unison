@@ -1,0 +1,51 @@
+# Unison
+
+Tools for generating React Native component code from Figma. This repository holds the Unison projects as git
+submodules:
+
+- `unison-components` - the component library, whose props mirror Figma properties as boolean flags
+- `unison-plugin` - the Figma plugin that generates component code for `unison-components`
+- `unison-playground` - a small site for trying out `unison-components`
+- `unison-website` - the site pitching the Unison tooling
+
+`unison-plugin` and `unison-playground` each carry their own nested copy of `unison-components`, which the sync
+scripts below keep up to date.
+
+## Setup
+
+```sh
+git submodule update --init --recursive
+```
+
+Then run `bun install` inside each submodule you work on. Bun is the package manager; the root has no dependencies
+of its own.
+
+## Commands
+
+Every root script runs the script of the same name inside its submodule (`bun run --cwd <submodule> <script>`), so
+it behaves exactly as if you ran it from that folder. Extra arguments are passed through, e.g.
+`bun run components:sync-manual:plugin -- --dry-run`.
+
+### Components (`unison-components`)
+
+- `bun run components:sync-manual:plugin` - copy `web/`, `native/` and `src/` into `unison-plugin/unison-components`
+  once, deleting files that no longer exist. Use before building the plugin against local component changes.
+- `bun run components:sync-watch:plugin` - keep `unison-plugin/unison-components` in sync while you edit. Use while
+  working on components and the plugin together.
+- `bun run components:sync-manual:playground` - the same one-off copy into `unison-playground/unison-components`.
+- `bun run components:sync-watch:playground` - the same live sync into `unison-playground/unison-components`. Use
+  while trying component changes in the playground.
+- `bun run components:lint` - Biome check.
+- `bun run components:format` - Biome format, writing changes.
+- `bun run components:typecheck` - `tsc --noEmit`.
+
+### Plugin (`unison-plugin`)
+
+- `bun run plugin:build` - build the plugin into `dist/` (bundle plus static files). Use before loading the plugin in
+  Figma. `dist/` is tracked, so this changes committed files.
+- `bun run plugin:build:typescript` - only bundle `src/index.ts` into `dist/index.js` with esbuild.
+- `bun run plugin:build:files` - only copy `manifest.json`, `index.html` and `placeholder.js` into `dist/`.
+- `bun run plugin:watch` - build once, then rebuild whenever `src/` changes.
+- `bun run plugin:lint` - Biome check.
+- `bun run plugin:format` - Biome format, writing changes.
+- `bun run plugin:typecheck` - `tsc --noEmit`.

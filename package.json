@@ -1,0 +1,21 @@
+{
+  "name": "unison",
+  "private": true,
+  "scripts": {
+    "components:sync-manual:plugin": "bun run --cwd unison-components components:sync-manual:plugin",
+    "components:sync-watch:plugin": "bun run --cwd unison-components components:sync-watch:plugin",
+    "components:sync-manual:playground": "bun run --cwd unison-components components:sync-manual:playground",
+    "components:sync-watch:playground": "bun run --cwd unison-components components:sync-watch:playground",
+    "components:lint": "bun run --cwd unison-components lint",
+    "components:format": "bun run --cwd unison-components format",
+    "components:typecheck": "bun run --cwd unison-components typecheck",
+    "plugin:build:typescript": "bun run --cwd unison-plugin plugin:build:typescript",
+    "plugin:build:files": "bun run --cwd unison-plugin plugin:build:files",
+    "plugin:build": "bun run --cwd unison-plugin plugin:build",
+    "plugin:watch": "bun run --cwd unison-plugin plugin:watch",
+    "plugin:lint": "bun run --cwd unison-plugin lint",
+    "plugin:format": "bun run --cwd unison-plugin format",
+    "plugin:typecheck": "bun run --cwd unison-plugin typecheck"
+  },
+  "packageManager": "bun@1.4.3"
+}
