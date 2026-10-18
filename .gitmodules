@@ -7,9 +7,9 @@
 [submodule "unison-website"]
 	path = unison-website
 	url = https://github.com/cllpse/unison-website
-[submodule "unison-playground"]
-	path = unison-playground
-	url = https://github.com/cllpse/unison-playground
+[submodule "unison-playground-web"]
+	path = unison-playground-web
+	url = https://github.com/cllpse/unison-playground-web
 [submodule "unison-playground-expo"]
 	path = unison-playground-expo
 	url = https://github.com/cllpse/unison-playground-expo

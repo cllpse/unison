@@ -4,8 +4,8 @@
   "scripts": {
     "components:sync-manual:plugin": "bun run --cwd unison-components components:sync-manual:plugin",
     "components:sync-watch:plugin": "bun run --cwd unison-components components:sync-watch:plugin",
-    "components:sync-manual:playground": "bun run --cwd unison-components components:sync-manual:playground",
-    "components:sync-watch:playground": "bun run --cwd unison-components components:sync-watch:playground",
+    "components:sync-manual:playground-web": "bun run --cwd unison-components components:sync-manual:playground-web",
+    "components:sync-watch:playground-web": "bun run --cwd unison-components components:sync-watch:playground-web",
     "components:lint": "bun run --cwd unison-components lint",
     "components:format": "bun run --cwd unison-components format",
     "components:typecheck": "bun run --cwd unison-components typecheck",

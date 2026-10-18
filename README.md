@@ -5,11 +5,11 @@ submodules:
 
 - `unison-components` - the component library, whose props mirror Figma properties as boolean flags
 - `unison-plugin` - the Figma plugin that generates component code for `unison-components`
-- `unison-playground` - a small site for trying out `unison-components`
+- `unison-playground-web` - a small site for trying out `unison-components`
 - `unison-playground-expo` - a small Expo app for trying out `unison-components` on iOS and Android
 - `unison-website` - the site pitching the Unison tooling
 
-`unison-plugin`, `unison-playground` and `unison-playground-expo` each carry their own nested copy of
+`unison-plugin`, `unison-playground-web` and `unison-playground-expo` each carry their own nested copy of
 `unison-components`. The sync scripts below keep the plugin and playground copies up to date; the Expo playground's
 copy is a pinned submodule you bump by hand.
 
@@ -34,9 +34,10 @@ it behaves exactly as if you ran it from that folder. Extra arguments are passed
   once, deleting files that no longer exist. Use before building the plugin against local component changes.
 - `bun run components:sync-watch:plugin` - keep `unison-plugin/unison-components` in sync while you edit. Use while
   working on components and the plugin together.
-- `bun run components:sync-manual:playground` - the same one-off copy into `unison-playground/unison-components`.
-- `bun run components:sync-watch:playground` - the same live sync into `unison-playground/unison-components`. Use
-  while trying component changes in the playground.
+- `bun run components:sync-manual:playground-web` - the same one-off copy into
+  `unison-playground-web/unison-components`.
+- `bun run components:sync-watch:playground-web` - the same live sync into `unison-playground-web/unison-components`.
+  Use while trying component changes in the playground.
 - `bun run components:lint` - Biome check.
 - `bun run components:format` - Biome format, writing changes.
 - `bun run components:typecheck` - `tsc --noEmit`.
