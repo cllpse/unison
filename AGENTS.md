@@ -18,8 +18,11 @@ through. See README.md for when to use each.
 - `bun run components:sync-watch:playground-web` - watch and sync into `unison-playground-web/unison-components`
   (long-running)
 - `bun run components:lint` / `components:format` / `components:typecheck` - Biome check, Biome format, `tsc --noEmit`
+- `bun run components:generate:tokens` - regenerate `unison-components/dist/design-tokens.ts` from `dist/design-tokens.json`
+- `bun run components:generate:tokens:watch` - regenerate it on every `design-tokens.json` or generator change (long-running)
 - `bun run components:generate:tailwind` - regenerate `unison-components/dist/tailwind.css` from the tokens
-- `bun run components:generate:tailwind:watch` - regenerate it on every token or generator change (long-running)
+- `bun run components:generate:tailwind:watch` - regenerate it on every `design-tokens.ts`, `maps/` or generator change
+  (long-running)
 - `bun run plugin:build` - build the plugin into the tracked `dist/`
 - `bun run plugin:build:typescript` / `plugin:build:files` - the two halves of `plugin:build`
 - `bun run plugin:watch` - rebuild the plugin on every `src/` change (long-running)
