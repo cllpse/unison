@@ -18,15 +18,26 @@ through. See README.md for when to use each.
 - `bun run components:sync-watch:playground-web` - watch and sync into `unison-playground-web/unison-components`
   (long-running)
 - `bun run components:lint` / `components:format` / `components:typecheck` - Biome check, Biome format, `tsc --noEmit`
+- `bun run components:tailwind-css` - regenerate `unison-components/dist/tailwind.css` from the tokens
+- `bun run components:tailwind-css:watch` - regenerate it on every token or generator change (long-running)
 - `bun run plugin:build` - build the plugin into the tracked `dist/`
 - `bun run plugin:build:typescript` / `plugin:build:files` - the two halves of `plugin:build`
 - `bun run plugin:watch` - rebuild the plugin on every `src/` change (long-running)
 - `bun run plugin:lint` / `plugin:format` / `plugin:typecheck` - Biome check, Biome format, `tsc --noEmit`
+- `bun run playground-web:dev` - Next.js dev server (long-running)
+- `bun run playground-web:build` / `playground-web:start` - production build, then serve it (`start` is long-running)
+- `bun run playground-web:lint` / `playground-web:format` / `playground-web:typecheck` - Biome check, Biome format,
+  `tsc --noEmit`
 - `bun run playground-expo:start` - Expo dev server (long-running)
 - `bun run playground-expo:android` / `playground-expo:ios` - dev server that opens the emulator or simulator; iOS
   needs macOS (or EAS Build)
 - `bun run playground-expo:lint` / `playground-expo:format` / `playground-expo:typecheck` - Biome check, Biome format,
   `tsc --noEmit`
+
+`./run.sh` is an interactive picker for people (gum multi-select, parallel by default, `--sequential` to chain); agents
+should call the `bun run` scripts directly.
+`./run.sh local:start` runs `local:stop`, then every watcher plus both playground dev servers and logs their PIDs to
+`.local.pids` (gitignored); `./run.sh local:stop` kills them.
 
 The manual syncs delete files in the target that the library no longer has; preview with
 `bun run components:sync-manual:<target> -- --dry-run`. Watch scripts never exit on their own; run them in the

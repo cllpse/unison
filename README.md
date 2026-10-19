@@ -28,6 +28,16 @@ Every root script runs the script of the same name inside its submodule (`bun ru
 it behaves exactly as if you ran it from that folder. Extra arguments are passed through, e.g.
 `bun run components:sync-manual:plugin -- --dry-run`.
 
+`./run.sh` lists all root scripts and runs the ones you pick: Space to select several in a gum list (fzf or a numbered
+menu without gum), Enter to run. Several picks run in parallel with each line prefixed by its script name;
+`./run.sh --sequential` runs them one after another instead. Ctrl+C stops them all.
+Parallel output keeps the scripts' own colors.
+
+The first two entries are `local:start`, which runs `local:stop` first and then starts every watcher plus
+`playground-web:dev` and `playground-expo:start`, logging their PIDs to `.local.pids`, and `local:stop`, which kills the
+logged processes from any terminal and then clears the log. They also run directly: `./run.sh local:start` and
+`./run.sh local:stop`.
+
 ### Components (`unison-components`)
 
 - `bun run components:sync-manual:plugin` - copy `dist/` and `src/` into `unison-plugin/unison-components`
@@ -41,6 +51,9 @@ it behaves exactly as if you ran it from that folder. Extra arguments are passed
 - `bun run components:lint` - Biome check.
 - `bun run components:format` - Biome format, writing changes.
 - `bun run components:typecheck` - `tsc --noEmit`.
+- `bun run components:tailwind-css` - regenerate `dist/tailwind.css` from the design tokens. Commit the result.
+- `bun run components:tailwind-css:watch` - regenerate it whenever `src/constants/` or the generator changes
+  (long-running).
 
 ### Plugin (`unison-plugin`)
 
@@ -52,6 +65,15 @@ it behaves exactly as if you ran it from that folder. Extra arguments are passed
 - `bun run plugin:lint` - Biome check.
 - `bun run plugin:format` - Biome format, writing changes.
 - `bun run plugin:typecheck` - `tsc --noEmit`.
+
+### Web playground (`unison-playground-web`)
+
+- `bun run playground-web:dev` - Next.js dev server (long-running). Use while trying components in the browser.
+- `bun run playground-web:build` - production build with `next build`.
+- `bun run playground-web:start` - serve the production build (long-running). Run `playground-web:build` first.
+- `bun run playground-web:lint` - Biome check.
+- `bun run playground-web:format` - Biome format, writing changes.
+- `bun run playground-web:typecheck` - `tsc --noEmit`.
 
 ### Expo playground (`unison-playground-expo`)
 
