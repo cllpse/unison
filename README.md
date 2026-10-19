@@ -30,7 +30,7 @@ it behaves exactly as if you ran it from that folder. Extra arguments are passed
 
 ### Components (`unison-components`)
 
-- `bun run components:sync-manual:plugin` - copy `web/`, `native/` and `src/` into `unison-plugin/unison-components`
+- `bun run components:sync-manual:plugin` - copy `dist/` and `src/` into `unison-plugin/unison-components`
   once, deleting files that no longer exist. Use before building the plugin against local component changes.
 - `bun run components:sync-watch:plugin` - keep `unison-plugin/unison-components` in sync while you edit. Use while
   working on components and the plugin together.
