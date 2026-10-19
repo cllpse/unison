@@ -86,3 +86,15 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run playground-expo:lint` - Biome check.
 - `bun run playground-expo:format` - Biome format, writing changes.
 - `bun run playground-expo:typecheck` - `tsc --noEmit`.
+
+### Website (`unison-website`)
+
+- `bun run website:dev` - Next.js dev server (long-running). Use while editing the landing page.
+- `bun run website:build` - production build with `next build`.
+- `bun run website:start` - serve the production build (long-running). Run `website:build` first.
+- `bun run website:lint` - Biome check.
+- `bun run website:format` - Biome format, writing changes.
+- `bun run website:typecheck` - `tsc --noEmit`.
+- `bun run website:bake` - export the site and fold it into one self-contained `dist/index.html`.
+- `bun run website:deploy` - bake, copy `dist/` into the eject.io and cllp-se hosting folders, then run
+  `firebase deploy` in each. This publishes the live site.

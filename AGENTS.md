@@ -33,6 +33,11 @@ through. See README.md for when to use each.
   needs macOS (or EAS Build)
 - `bun run playground-expo:lint` / `playground-expo:format` / `playground-expo:typecheck` - Biome check, Biome format,
   `tsc --noEmit`
+- `bun run website:dev` - Next.js dev server (long-running)
+- `bun run website:build` / `website:start` - production build, then serve it (`start` is long-running)
+- `bun run website:lint` / `website:format` / `website:typecheck` - Biome check, Biome format, `tsc --noEmit`
+- `bun run website:bake` - static export folded into one self-contained `unison-website/dist/index.html`
+- `bun run website:deploy` - bake, then `firebase deploy` to eject.io and cllp-se; publishes live, only run when asked
 
 `./run.sh` is an interactive picker for people (gum multi-select, parallel by default, `--sequential` to chain); agents
 should call the `bun run` scripts directly.

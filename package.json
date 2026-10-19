@@ -30,7 +30,15 @@
     "playground-expo:ios": "bun run --cwd unison-playground-expo ios",
     "playground-expo:lint": "bun run --cwd unison-playground-expo lint",
     "playground-expo:format": "bun run --cwd unison-playground-expo format",
-    "playground-expo:typecheck": "bun run --cwd unison-playground-expo typecheck"
+    "playground-expo:typecheck": "bun run --cwd unison-playground-expo typecheck",
+    "website:dev": "bun run --cwd unison-website dev",
+    "website:build": "bun run --cwd unison-website build",
+    "website:start": "bun run --cwd unison-website start",
+    "website:lint": "bun run --cwd unison-website lint",
+    "website:format": "bun run --cwd unison-website format",
+    "website:typecheck": "bun run --cwd unison-website typecheck",
+    "website:bake": "bun run --cwd unison-website bake",
+    "website:deploy": "bun run --cwd unison-website deploy"
   },
   "packageManager": "bun@1.4.3"
 }
