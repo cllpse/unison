@@ -9,6 +9,7 @@
     "components:lint": "bun run --cwd unison-components lint",
     "components:format": "bun run --cwd unison-components format",
     "components:typecheck": "bun run --cwd unison-components typecheck",
+    "components:tokens-ts": "bun run --cwd unison-components tokens:ts",
     "components:tailwind-css": "bun run --cwd unison-components tailwind:css",
     "components:tailwind-css:watch": "bun run --cwd unison-components tailwind:css:watch",
     "plugin:build:typescript": "bun run --cwd unison-plugin plugin:build:typescript",

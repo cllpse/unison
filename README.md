@@ -51,6 +51,7 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run components:lint` - Biome check.
 - `bun run components:format` - Biome format, writing changes.
 - `bun run components:typecheck` - `tsc --noEmit`.
+- `bun run components:tokens-ts` - regenerate `dist/tokens.ts` from `dist/tokens.json`. Commit the result.
 - `bun run components:tailwind-css` - regenerate `dist/tailwind.css` from the design tokens. Commit the result.
 - `bun run components:tailwind-css:watch` - regenerate it whenever `src/constants/` or the generator changes
   (long-running).
