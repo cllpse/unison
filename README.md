@@ -3,11 +3,11 @@
 Tools for generating React Native component code from Figma. This repository holds the Unison projects as git
 submodules:
 
-- `unison-components` - the component library, whose props mirror Figma properties as boolean flags
-- `unison-plugin` - the Figma plugin that generates component code for `unison-components`
-- `unison-playground-web` - a small site for trying out `unison-components`
-- `unison-playground-expo` - a small Expo app for trying out `unison-components` on iOS and Android
-- `unison-website` - the site pitching the Unison tooling
+- [unison-components](https://github.com/cllpse/unison-components) - the component library, whose props mirror Figma properties as boolean flags
+- [unison-plugin](https://github.com/cllpse/unison-plugin) - the Figma plugin that generates component code for `unison-components`
+- [unison-playground-web](https://github.com/cllpse/unison-playground-web) - a small site for trying out `unison-components`
+- [unison-playground-expo](https://github.com/cllpse/unison-playground-expo) - a small Expo app for trying out `unison-components` on iOS and Android
+- [unison-website](https://github.com/cllpse/unison-website) - the site pitching the Unison tooling
 
 `unison-plugin`, `unison-playground-web` and `unison-playground-expo` each carry their own nested copy of
 `unison-components`. The sync scripts below keep the plugin and playground copies up to date; the Expo playground's
