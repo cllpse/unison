@@ -19,9 +19,13 @@ through. See README.md for when to use each.
   (long-running)
 - `bun run components:lint` / `components:format` / `components:typecheck` - Biome check, Biome format, `tsc --noEmit`
 - `bun run components:generate:tokens` - regenerate `unison-components/dist/design-tokens.ts` from `dist/design-tokens.json`
-- `bun run components:generate:tokens:watch` - regenerate it on every `design-tokens.json` or generator change (long-running)
-- `bun run components:generate:tailwind` - regenerate `unison-components/dist/tailwind.css` from the tokens
-- `bun run components:generate:tailwind:watch` - regenerate it on every `design-tokens.ts`, `maps/` or generator change
+  and `dist/motion-tokens.css`
+- `bun run components:generate:tokens:watch` - regenerate it on every `design-tokens.json`, `motion-tokens.css` or
+  generator change (long-running)
+- `bun run components:generate:tailwind` - regenerate `unison-components/dist/tailwind.css` from the tokens and
+  `motion-tokens.css`
+- `bun run components:generate:tailwind:watch` - regenerate it on every `design-tokens.ts`, `motion-tokens.css`, `maps/`
+  or generator change
   (long-running)
 - `bun run plugin:build` - build the plugin into the tracked `dist/`
 - `bun run plugin:build:typescript` / `plugin:build:files` - the two halves of `plugin:build`

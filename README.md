@@ -51,11 +51,11 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run components:lint` - Biome check.
 - `bun run components:format` - Biome format, writing changes.
 - `bun run components:typecheck` - `tsc --noEmit`.
-- `bun run components:generate:tokens` - regenerate `dist/design-tokens.ts` from `dist/design-tokens.json`. Commit the result.
-- `bun run components:generate:tokens:watch` - regenerate it whenever `dist/design-tokens.json` or its generator changes
+- `bun run components:generate:tokens` - regenerate `dist/design-tokens.ts` from `dist/design-tokens.json` and `dist/motion-tokens.css`. Commit the result.
+- `bun run components:generate:tokens:watch` - regenerate it whenever `dist/design-tokens.json`, `dist/motion-tokens.css` or its generator changes
   (long-running).
-- `bun run components:generate:tailwind` - regenerate `dist/tailwind.css` from the design tokens. Commit the result.
-- `bun run components:generate:tailwind:watch` - regenerate it whenever `maps/`, `dist/design-tokens.ts` or its generator changes
+- `bun run components:generate:tailwind` - regenerate `dist/tailwind.css` from the design tokens and `dist/motion-tokens.css`. Commit the result.
+- `bun run components:generate:tailwind:watch` - regenerate it whenever `maps/`, `dist/design-tokens.ts`, `dist/motion-tokens.css` or its generator changes
   (long-running).
 
 ### Plugin (`unison-plugin`)
