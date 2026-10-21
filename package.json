@@ -22,6 +22,7 @@
     "plugin:typecheck": "bun run --cwd unison-plugin typecheck",
     "playground-web:dev": "bun run --cwd unison-playground-web dev",
     "playground-web:build": "bun run --cwd unison-playground-web build",
+    "playground-web:bake": "bun run --cwd unison-playground-web bake",
     "playground-web:start": "bun run --cwd unison-playground-web start",
     "playground-web:lint": "bun run --cwd unison-playground-web lint",
     "playground-web:format": "bun run --cwd unison-playground-web format",

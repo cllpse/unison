@@ -74,6 +74,8 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run playground-web:dev` - Next.js dev server (long-running). Use while trying components in the browser.
 - `bun run playground-web:build` - production build with `next build`.
 - `bun run playground-web:start` - serve the production build (long-running). Run `playground-web:build` first.
+- `bun run playground-web:bake` - static export into `unison-playground-web/out`, served from `/unison/one-shot`;
+  `website:deploy` runs it and publishes the one-shot pages from it.
 - `bun run playground-web:lint` - Biome check.
 - `bun run playground-web:format` - Biome format, writing changes.
 - `bun run playground-web:typecheck` - `tsc --noEmit`.
@@ -98,5 +100,5 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run website:format` - Biome format, writing changes.
 - `bun run website:typecheck` - `tsc --noEmit`.
 - `bun run website:bake` - export the site and fold it into one self-contained `dist/index.html`.
-- `bun run website:deploy` - bake, copy `dist/` into the eject.io and cllp-se hosting folders, then run
-  `firebase deploy` in each. This publishes the live site.
+- `bun run website:deploy` - bake, bake the web playground's one-shot pages into `dist/one-shot`, copy `dist/` into
+  the eject.io and cllp-se hosting folders, then run `firebase deploy` in each. This publishes the live site.
