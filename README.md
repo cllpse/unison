@@ -9,9 +9,9 @@ submodules:
 - [unison-playground-expo](https://github.com/cllpse/unison-playground-expo) - a small Expo app for trying out `unison-components` on iOS and Android
 - [unison-website](https://github.com/cllpse/unison-website) - the site pitching the Unison tooling
 
-`unison-plugin`, `unison-playground-web` and `unison-playground-expo` each carry their own nested copy of
-`unison-components`. The sync scripts below keep the plugin and playground copies up to date; the Expo playground's
-copy is a pinned submodule you bump by hand.
+`unison-plugin` carries its own nested copy of `unison-components` as a submodule. The playgrounds depend on the
+`unison-components` npm package instead, so each one also works as a standalone clone. The sync scripts below keep the
+plugin's copy, and the playgrounds' installed packages, up to date with local library changes.
 
 ## Setup
 
@@ -44,10 +44,13 @@ logged processes from any terminal and then clears the log. They also run direct
   once, deleting files that no longer exist. Use before building the plugin against local component changes.
 - `bun run components:sync-watch:plugin` - keep `unison-plugin/unison-components` in sync while you edit. Use while
   working on components and the plugin together.
-- `bun run components:sync-manual:playground-web` - the same one-off copy into
-  `unison-playground-web/unison-components`.
-- `bun run components:sync-watch:playground-web` - the same live sync into `unison-playground-web/unison-components`.
-  Use while trying component changes in the playground.
+- `bun run components:sync-manual:playground-web` - build the library and copy `build/` and `package.json` over the
+  installed package in `unison-playground-web/node_modules/unison-components`. Use to try unreleased library changes
+  in the playground; `bun install` there puts the published package back.
+- `bun run components:sync-watch:playground-web` - the same build and copy on every library change. Use while trying
+  component changes in the playground.
+- `bun run components:sync-manual:playground-expo` / `components:sync-watch:playground-expo` - the same for
+  `unison-playground-expo`.
 - `bun run components:lint` - Biome check.
 - `bun run components:format` - Biome format, writing changes.
 - `bun run components:typecheck` - `tsc --noEmit`.

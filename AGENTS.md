@@ -2,9 +2,9 @@
 
 Parent repository for the Unison tools. Each project is a git submodule with its own README.md and AGENTS.md:
 `unison-components`, `unison-plugin`, `unison-playground-web`, `unison-playground-expo` and `unison-website`.
-`unison-plugin`, `unison-playground-web` and `unison-playground-expo` contain a nested `unison-components` submodule; it
-is never edited by hand. The sync scripts update the plugin and playground copies; the Expo playground's copy is
-bumped as a normal submodule.
+`unison-plugin` contains a nested `unison-components` submodule; it is never edited by hand. The playgrounds depend on
+the `unison-components` npm package instead, so they work as standalone clones; the playground sync scripts build the
+library and copy it over the installed package to try unreleased changes.
 
 ## Commands
 
@@ -14,9 +14,11 @@ through. See README.md for when to use each.
 
 - `bun run components:sync-manual:plugin` - one-off rsync of `unison-components` into `unison-plugin/unison-components`
 - `bun run components:sync-watch:plugin` - watch and sync into `unison-plugin/unison-components` (long-running)
-- `bun run components:sync-manual:playground-web` - one-off rsync into `unison-playground-web/unison-components`
-- `bun run components:sync-watch:playground-web` - watch and sync into `unison-playground-web/unison-components`
-  (long-running)
+- `bun run components:sync-manual:playground-web` - build the library and rsync `build/` and `package.json` into
+  `unison-playground-web/node_modules/unison-components`; `bun install` there restores the published package
+- `bun run components:sync-watch:playground-web` - the same on every library change (long-running)
+- `bun run components:sync-manual:playground-expo` / `components:sync-watch:playground-expo` - the same for
+  `unison-playground-expo/node_modules/unison-components`
 - `bun run components:lint` / `components:format` / `components:typecheck` - Biome check, Biome format, `tsc --noEmit`
 - `bun run components:generate:tokens` - regenerate `unison-components/dist/design-tokens.ts` from `dist/design-tokens.json`
   and `dist/motion-tokens.css`
