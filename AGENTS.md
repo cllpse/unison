@@ -8,53 +8,30 @@ library and copy it over the installed package to try unreleased changes.
 
 ## Commands
 
-Run these from the repository root. Each one runs the same-named script inside its submodule via
-`bun run --cwd <submodule> <script>`, so the working directory is the submodule. Arguments after `--` are passed
-through. See README.md for when to use each.
+The root has two scripts, both run from the repository root:
 
-- `bun run components:sync-manual:plugin` - one-off rsync of `unison-components` into `unison-plugin/unison-components`
-- `bun run components:sync-watch:plugin` - watch and sync into `unison-plugin/unison-components` (long-running)
-- `bun run components:sync-manual:playground-web` - build the library and rsync `build/` and `package.json` into
-  `unison-playground-web/node_modules/unison-components`; `bun install` there restores the published package
-- `bun run components:sync-watch:playground-web` - the same on every library change (long-running)
-- `bun run components:sync-manual:playground-expo` / `components:sync-watch:playground-expo` - the same for
-  `unison-playground-expo/node_modules/unison-components`
-- `bun run components:lint` / `components:format` / `components:typecheck` - Biome check, Biome format, `tsc --noEmit`
-- `bun run components:generate:tokens` - regenerate `unison-components/dist/design-tokens.ts` from `dist/design-tokens.json`
-  and `dist/motion-tokens.css`
-- `bun run components:generate:tokens:watch` - regenerate it on every `design-tokens.json`, `motion-tokens.css` or
-  generator change (long-running)
-- `bun run components:generate:tailwind` - regenerate `unison-components/dist/tailwind.css` from the tokens and
-  `motion-tokens.css`
-- `bun run components:generate:tailwind:watch` - regenerate it on every `design-tokens.ts`, `motion-tokens.css`, `maps/`
-  or generator change
-  (long-running)
-- `bun run plugin:build` - build the plugin into the tracked `dist/`
-- `bun run plugin:build:typescript` / `plugin:build:files` - the two halves of `plugin:build`
-- `bun run plugin:watch` - rebuild the plugin on every `src/` change (long-running)
-- `bun run plugin:lint` / `plugin:format` / `plugin:typecheck` - Biome check, Biome format, `tsc --noEmit`
-- `bun run playground-web:dev` - Next.js dev server (long-running)
-- `bun run playground-web:build` / `playground-web:start` - production build, then serve it (`start` is long-running)
-- `bun run playground-web:bake` - static export into `out/`, served from `/unison/one-shot` (used by `website:deploy`)
-- `bun run playground-web:lint` / `playground-web:format` / `playground-web:typecheck` - Biome check, Biome format,
-  `tsc --noEmit`
-- `bun run playground-expo:start` - Expo dev server (long-running)
-- `bun run playground-expo:android` / `playground-expo:ios` - dev server that opens the emulator or simulator; iOS
-  needs macOS (or EAS Build)
-- `bun run playground-expo:lint` / `playground-expo:format` / `playground-expo:typecheck` - Biome check, Biome format,
-  `tsc --noEmit`
-- `bun run website:dev` - Next.js dev server (long-running)
-- `bun run website:build` / `website:start` - production build, then serve it (`start` is long-running)
-- `bun run website:lint` / `website:format` / `website:typecheck` - Biome check, Biome format, `tsc --noEmit`
-- `bun run website:bake` - static export folded into one self-contained `unison-website/dist/index.html`
-- `bun run website:deploy` - bake the site and the playground's one-shot pages, then `firebase deploy` to eject.io and
-  cllp-se; publishes live, only run when asked
+- `./all-dev.sh` - stops whatever its last run started, then runs every watcher plus the web playground, Expo
+  playground and website dev servers in parallel until Ctrl+C, logging their PIDs to `.all-dev.pids` (gitignored) so
+  the next run can stop them. Long-running; run it in the background. It refuses to start while a submodule is not
+  checked out (`git submodule update --init --recursive`).
+- `./website-deploy.sh` - runs `unison-website`'s `bun run deploy` (`scripts/deploy.ts`): bakes the site and the
+  playground's one-shot pages, then `firebase deploy` to eject.io and cllp-se; publishes live, only run when asked
 
-`./run.sh` is an interactive picker for people (gum multi-select, parallel by default, `--sequential` to chain); agents
-should call the `bun run` scripts directly.
-`./run.sh local:start` runs `local:stop`, then every watcher plus both playground dev servers and logs their PIDs to
-`.local.pids` (gitignored); `./run.sh local:stop` kills them.
+Every other command is a script in a submodule's `package.json`, documented in that submodule's README.md and
+AGENTS.md. Run it inside the submodule, or from the root with `bun run --cwd <submodule> <script>`; extra arguments are
+passed through. The ones that work across submodules:
+
+- `unison-components`: `components:sync-manual:plugin` / `components:sync-watch:plugin` rsync the library into
+  `unison-plugin/unison-components`; `components:sync-manual:playground-web` / `components:sync-watch:playground-web`
+  build it and rsync `build/` and `package.json` into `unison-playground-web/node_modules/unison-components`
+  (`bun install` there restores the published package); `components:sync-manual:playground-expo` /
+  `components:sync-watch:playground-expo` do the same for `unison-playground-expo`. `generate:tokens` and
+  `generate:tailwind` (each with a `:watch` variant) regenerate `dist/design-tokens.ts` and `dist/tailwind.css`.
+- `unison-plugin`: `plugin:build` builds into the tracked `dist/`; `plugin:watch` rebuilds on every `src/` change.
+- `unison-playground-web`: `bake` is the static export into `out/` that `./website-deploy.sh` publishes.
+
+Each submodule also has `lint` (Biome check), `format` (Biome format) and `typecheck` (`tsc --noEmit`).
 
 The manual syncs delete files in the target that the library no longer has; preview with
-`bun run components:sync-manual:<target> -- --dry-run`. Watch scripts never exit on their own; run them in the
-background.
+`bun run --cwd unison-components components:sync-manual:<target> --dry-run`. Watch scripts never exit on their own;
+run them in the background.

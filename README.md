@@ -24,19 +24,19 @@ of its own.
 
 ## Commands
 
-Every root script runs the script of the same name inside its submodule (`bun run --cwd <submodule> <script>`), so
-it behaves exactly as if you ran it from that folder. Extra arguments are passed through, e.g.
-`bun run components:sync-manual:plugin -- --dry-run`.
+The root has two scripts:
 
-`./run.sh` lists all root scripts and runs the ones you pick: Space to select several in a gum list (fzf or a numbered
-menu without gum), Enter to run. Several picks run in parallel with each line prefixed by its script name;
-`./run.sh --sequential` runs them one after another instead. Ctrl+C stops them all.
-Parallel output keeps the scripts' own colors.
+- `./all-dev.sh` - stop whatever its last run started, then run every watcher plus the web playground, Expo playground
+  and website dev servers in parallel, each output line prefixed with its name, until Ctrl+C. It logs their PIDs to
+  `.all-dev.pids`, so the next run stops them even from another terminal. The two Next.js servers share port 3000 by
+  default, so whichever starts second moves to 3001.
+- `./website-deploy.sh` - run `unison-website`'s `bun run deploy`: bake the site, bake the web playground's one-shot
+  pages into `dist/one-shot`, copy `dist/` into the eject.io and cllp-se hosting folders, then run `firebase deploy` in
+  each. This publishes the live site.
 
-The first two entries are `local:start`, which runs `local:stop` first and then starts every watcher plus
-`playground-web:dev` and `playground-expo:start`, logging their PIDs to `.local.pids`, and `local:stop`, which kills the
-logged processes from any terminal and then clears the log. They also run directly: `./run.sh local:start` and
-`./run.sh local:stop`.
+Every other command is a script in a submodule's `package.json`. Run it inside that submodule, or from the root with
+`bun run --cwd <submodule> <script>`. Extra arguments are passed through, e.g.
+`bun run --cwd unison-components components:sync-manual:plugin --dry-run`.
 
 ### Components (`unison-components`)
 
@@ -51,15 +51,17 @@ logged processes from any terminal and then clears the log. They also run direct
   component changes in the playground.
 - `bun run components:sync-manual:playground-expo` / `components:sync-watch:playground-expo` - the same for
   `unison-playground-expo`.
-- `bun run components:lint` - Biome check.
-- `bun run components:format` - Biome format, writing changes.
-- `bun run components:typecheck` - `tsc --noEmit`.
-- `bun run components:generate:tokens` - regenerate `dist/design-tokens.ts` from `dist/design-tokens.json` and `dist/motion-tokens.css`. Commit the result.
-- `bun run components:generate:tokens:watch` - regenerate it whenever `dist/design-tokens.json`, `dist/motion-tokens.css` or its generator changes
-  (long-running).
-- `bun run components:generate:tailwind` - regenerate `dist/tailwind.css` from the design tokens and `dist/motion-tokens.css`. Commit the result.
-- `bun run components:generate:tailwind:watch` - regenerate it whenever `maps/`, `dist/design-tokens.ts`, `dist/motion-tokens.css` or its generator changes
-  (long-running).
+- `bun run lint` - Biome check.
+- `bun run format` - Biome format, writing changes.
+- `bun run typecheck` - `tsc --noEmit`.
+- `bun run generate:tokens` - regenerate `dist/design-tokens.ts` from `dist/design-tokens.json` and
+  `dist/motion-tokens.css`. Commit the result.
+- `bun run generate:tokens:watch` - regenerate it whenever `dist/design-tokens.json`, `dist/motion-tokens.css` or its
+  generator changes (long-running).
+- `bun run generate:tailwind` - regenerate `dist/tailwind.css` from the design tokens and `dist/motion-tokens.css`.
+  Commit the result.
+- `bun run generate:tailwind:watch` - regenerate it whenever `maps/`, `dist/design-tokens.ts`, `dist/motion-tokens.css`
+  or its generator changes (long-running).
 
 ### Plugin (`unison-plugin`)
 
@@ -68,40 +70,39 @@ logged processes from any terminal and then clears the log. They also run direct
 - `bun run plugin:build:typescript` - only bundle `src/index.ts` into `dist/index.js` with esbuild.
 - `bun run plugin:build:files` - only copy `manifest.json`, `index.html` and `placeholder.js` into `dist/`.
 - `bun run plugin:watch` - build once, then rebuild whenever `src/` changes.
-- `bun run plugin:lint` - Biome check.
-- `bun run plugin:format` - Biome format, writing changes.
-- `bun run plugin:typecheck` - `tsc --noEmit`.
+- `bun run lint` - Biome check.
+- `bun run format` - Biome format, writing changes.
+- `bun run typecheck` - `tsc --noEmit`.
 
 ### Web playground (`unison-playground-web`)
 
-- `bun run playground-web:dev` - Next.js dev server (long-running). Use while trying components in the browser.
-- `bun run playground-web:build` - production build with `next build`.
-- `bun run playground-web:start` - serve the production build (long-running). Run `playground-web:build` first.
-- `bun run playground-web:bake` - static export into `unison-playground-web/out`, served from `/unison/one-shot`;
-  `website:deploy` runs it and publishes the one-shot pages from it.
-- `bun run playground-web:lint` - Biome check.
-- `bun run playground-web:format` - Biome format, writing changes.
-- `bun run playground-web:typecheck` - `tsc --noEmit`.
+- `bun run dev` - Next.js dev server (long-running). Use while trying components in the browser.
+- `bun run build` - production build with `next build`.
+- `bun run start` - serve the production build (long-running). Run `build` first.
+- `bun run bake` - static export into `out/`, served from `/unison/one-shot`; `./website-deploy.sh` runs it and
+  publishes the one-shot pages from it.
+- `bun run lint` - Biome check.
+- `bun run format` - Biome format, writing changes.
+- `bun run typecheck` - `tsc --noEmit`.
 
 ### Expo playground (`unison-playground-expo`)
 
-- `bun run playground-expo:start` - Expo dev server (long-running). Works on Linux, Windows and macOS; open the app in
-  Expo Go on a phone by scanning the QR code.
-- `bun run playground-expo:android` - dev server that also opens the Android emulator.
-- `bun run playground-expo:ios` - dev server that also opens the iOS simulator. The simulator and native iOS builds
-  need macOS with Xcode, or EAS Build from any OS.
-- `bun run playground-expo:lint` - Biome check.
-- `bun run playground-expo:format` - Biome format, writing changes.
-- `bun run playground-expo:typecheck` - `tsc --noEmit`.
+- `bun run start` - Expo dev server (long-running). Works on Linux, Windows and macOS; open the app in Expo Go on a
+  phone by scanning the QR code.
+- `bun run android` - dev server that also opens the Android emulator.
+- `bun run ios` - dev server that also opens the iOS simulator. The simulator and native iOS builds need macOS with
+  Xcode, or EAS Build from any OS.
+- `bun run lint` - Biome check.
+- `bun run format` - Biome format, writing changes.
+- `bun run typecheck` - `tsc --noEmit`.
 
 ### Website (`unison-website`)
 
-- `bun run website:dev` - Next.js dev server (long-running). Use while editing the landing page.
-- `bun run website:build` - production build with `next build`.
-- `bun run website:start` - serve the production build (long-running). Run `website:build` first.
-- `bun run website:lint` - Biome check.
-- `bun run website:format` - Biome format, writing changes.
-- `bun run website:typecheck` - `tsc --noEmit`.
-- `bun run website:bake` - export the site and fold it into one self-contained `dist/index.html`.
-- `bun run website:deploy` - bake, bake the web playground's one-shot pages into `dist/one-shot`, copy `dist/` into
-  the eject.io and cllp-se hosting folders, then run `firebase deploy` in each. This publishes the live site.
+- `bun run dev` - Next.js dev server (long-running). Use while editing the landing page.
+- `bun run build` - production build with `next build`.
+- `bun run start` - serve the production build (long-running). Run `build` first.
+- `bun run lint` - Biome check.
+- `bun run format` - Biome format, writing changes.
+- `bun run typecheck` - `tsc --noEmit`.
+- `bun run bake` - export the site and fold it into one self-contained `dist/index.html`.
+- `bun run deploy` - what `./website-deploy.sh` runs. This publishes the live site.
