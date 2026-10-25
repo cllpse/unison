@@ -15,7 +15,10 @@ The root has two scripts, both run from the repository root:
   the next run can stop them. Long-running; run it in the background. It refuses to start while a submodule is not
   checked out (`git submodule update --init --recursive`).
 - `./website-deploy.sh` - runs `unison-website`'s `bun run deploy` (`scripts/deploy.ts`): bakes the site and the
-  playground's one-shot pages, then `firebase deploy` to eject.io and cllp-se; publishes live, only run when asked
+  playground's one-shot pages, then `firebase deploy` to eject.io and cllp-se; publishes live, only run when asked. It
+  refuses to run while `unison-website` or `unison-playground-web` is not checked out or doesn't include the commit
+  the root records (`git submodule update --init --recursive --merge`), so a stale checkout never publishes an older
+  page.
 
 Every other command is a script in a submodule's `package.json`, documented in that submodule's README.md and
 AGENTS.md. Run it inside the submodule, or from the root with `bun run --cwd <submodule> <script>`; extra arguments are

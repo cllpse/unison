@@ -32,7 +32,9 @@ The root has two scripts:
   default, so whichever starts second moves to 3001.
 - `./website-deploy.sh` - run `unison-website`'s `bun run deploy`: bake the site, bake the web playground's one-shot
   pages into `dist/one-shot`, copy `dist/` into the eject.io and cllp-se hosting folders, then run `firebase deploy` in
-  each. This publishes the live site.
+  each. This publishes the live site. It refuses to run while `unison-website` or `unison-playground-web` is not
+  checked out or is behind the commit the root records, which happens after pulling the root without updating its
+  submodules; `git submodule update --init --recursive --merge` catches them up and keeps them on their branch.
 
 Every other command is a script in a submodule's `package.json`. Run it inside that submodule, or from the root with
 `bun run --cwd <submodule> <script>`. Extra arguments are passed through, e.g.
