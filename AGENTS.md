@@ -28,12 +28,15 @@ passed through. The ones that work across submodules:
   `unison-plugin/unison-components`; `components:sync-manual:playground-web` / `components:sync-watch:playground-web`
   build it and rsync `build/` and `package.json` into `unison-playground-web/node_modules/unison-components`
   (`bun install` there restores the published package); `components:sync-manual:playground-expo` /
-  `components:sync-watch:playground-expo` do the same for `unison-playground-expo`. `generate:tokens` and
-  `generate:tailwind` (each with a `:watch` variant) regenerate `dist/design-tokens.ts` and `dist/tailwind.css`.
-- `unison-plugin`: `plugin:build` builds into the tracked `dist/`; `plugin:watch` rebuilds on every `src/` change.
+  `components:sync-watch:playground-expo` do the same for `unison-playground-expo`. `generate` (and
+  `generate:watch`) runs `generate:tokens` and `generate:tailwind` (each with a `:watch` variant too), which regenerate
+  `dist/design-tokens.ts`, and `dist/tailwind.css` and `dist/safelist.css`.
+- `unison-plugin`: `plugin:build` builds into the tracked `dist/`; `plugin:watch` rebuilds on every change to a file
+  the plugin imports, the nested `unison-components` included.
 - `unison-playground-web`: `bake` is the static export into `out/` that `./website-deploy.sh` publishes.
 
-Each submodule also has `lint` (Biome check), `format` (Biome format) and `typecheck` (`tsc --noEmit`).
+Each submodule also has `lint` (Biome check), `format` (Biome format) and `typecheck` (`tsc --noEmit`);
+`unison-components` and `unison-plugin` also have `test` (`bun test`), which must pass before committing too.
 
 The manual syncs delete files in the target that the library no longer has; preview with
 `bun run --cwd unison-components components:sync-manual:<target> --dry-run`. Watch scripts never exit on their own;

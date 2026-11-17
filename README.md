@@ -55,26 +55,30 @@ Every other command is a script in a submodule's `package.json`. Run it inside t
   `unison-playground-expo`.
 - `bun run lint` - Biome check.
 - `bun run format` - Biome format, writing changes.
-- `bun run typecheck` - `tsc --noEmit`.
+- `bun run typecheck` - `tsc --noEmit` for the library, then for its scripts and tests.
+- `bun test` - the library's tests. They also fail while a committed generated file is out of date.
+- `bun run generate` - both generators below, in order. Commit the results.
+- `bun run generate:watch` - the same whenever the tokens, `dist/motion-tokens.css`, `maps/` or a generator changes
+  (long-running).
 - `bun run generate:tokens` - regenerate `dist/design-tokens.ts` from `dist/design-tokens.json` and
   `dist/motion-tokens.css`. Commit the result.
 - `bun run generate:tokens:watch` - regenerate it whenever `dist/design-tokens.json`, `dist/motion-tokens.css` or its
   generator changes (long-running).
-- `bun run generate:tailwind` - regenerate `dist/tailwind.css` from the design tokens and `dist/motion-tokens.css`.
-  Commit the result.
-- `bun run generate:tailwind:watch` - regenerate it whenever `maps/`, `dist/design-tokens.ts`, `dist/motion-tokens.css`
-  or its generator changes (long-running).
+- `bun run generate:tailwind` - regenerate `dist/tailwind.css` and `dist/safelist.css` from the design tokens, `maps/`
+  and `dist/motion-tokens.css`. Commit the result.
+- `bun run generate:tailwind:watch` - regenerate them whenever `maps/`, `dist/design-tokens.ts`,
+  `dist/motion-tokens.css` or the generator changes (long-running).
 
 ### Plugin (`unison-plugin`)
 
-- `bun run plugin:build` - build the plugin into `dist/` (bundle plus static files). Use before loading the plugin in
-  Figma. `dist/` is tracked, so this changes committed files.
-- `bun run plugin:build:typescript` - only bundle `src/index.ts` into `dist/index.js` with esbuild.
-- `bun run plugin:build:files` - only copy `manifest.json`, `index.html` and `placeholder.js` into `dist/`.
-- `bun run plugin:watch` - build once, then rebuild whenever `src/` changes.
+- `bun run plugin:build` - build the plugin into `dist/`: the main code, the UI inlined into `index.html`, and the
+  manifest. Use before loading the plugin in Figma. `dist/` is tracked, so this changes committed files.
+- `bun run plugin:watch` - build once, then rebuild incrementally whenever a file the plugin imports changes (the
+  nested `unison-components` included), or `src/index.html` or `src/manifest.json` (long-running).
+- `bun run test` - the plugin's tests, including a check that every flag it writes exists in the library.
 - `bun run lint` - Biome check.
 - `bun run format` - Biome format, writing changes.
-- `bun run typecheck` - `tsc --noEmit`.
+- `bun run typecheck` - `tsc --noEmit` for the main code, the UI, and the build script and tests.
 
 ### Web playground (`unison-playground-web`)
 
